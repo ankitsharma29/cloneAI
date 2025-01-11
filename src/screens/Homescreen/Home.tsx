@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -9,27 +9,26 @@ import {
   ScrollView,
   SafeAreaView,
   StatusBar,
-  FlatList,
   Modal,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NewsCards from '../../Components/NewsCards';
 import ShortcutsCard from '../../Components/ShortcutsCard';
 import Colors from '../../resource/theme/color';
-import {GoogleAccountModel} from '../../Components/GoogleAccountMenu';
 
 const Home = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const menuItems = [
-    {label: 'Search history', value: 'Saving'},
-    {label: 'Delete last 15 minutes', value: ''},
-    {label: 'Search personalisation', value: ''},
-    {label: 'SafeSearch', value: ''},
-    {label: 'Results about you', value: ''},
-    {label: 'Tasks', value: ''},
-    {label: 'Saves and collections', value: ''},
-    {label: 'Your profile', value: ''},
+    { label: 'Search history', value: 'Saving' },
+    { label: 'Delete last 15 minutes', value: '' },
+    { label: 'Search personalisation', value: '' },
+    { label: 'SafeSearch', value: '' },
+    { label: 'Results about you', value: '' },
+    { label: 'Tasks', value: '' },
+    { label: 'Saves and collections', value: '' },
+    { label: 'Your profile', value: '' },
   ];
+
   return (
     <>
       <StatusBar backgroundColor={Colors.black()} />
@@ -44,9 +43,7 @@ const Home = () => {
             </View>
             <TouchableOpacity
               style={styles.profileButton}
-              onPress={() => {
-                setModalVisible(true);
-              }}>
+              onPress={() => setModalVisible(true)}>
               <Text style={styles.profileLetter}>A</Text>
             </TouchableOpacity>
           </View>
@@ -88,6 +85,7 @@ const Home = () => {
           {/* News Card */}
           <NewsCards />
         </ScrollView>
+
         {/* Bottom Navigation */}
         <View style={styles.bottomNav}>
           <TouchableOpacity style={styles.navItem}>
@@ -103,18 +101,19 @@ const Home = () => {
             <Icon name="menu" size={24} color="#fff" />
           </TouchableOpacity>
         </View>
-        {/* model for manage account */}
+
+        {/* Modal for Manage Account */}
         <Modal
           visible={isModalVisible}
-          animationType="slide"
+          animationType="fade"
           transparent={true}
           onRequestClose={() => setModalVisible(false)}>
           <View style={styles.modalContainer}>
-            <ScrollView style={styles.modalContent}>
+            <View style={styles.modalContent}>
               {/* Profile Section */}
               <View style={styles.profileContainer}>
                 <Image
-                  source={{uri: 'https://picsum.photos/200/300?person'}}
+                  source={{ uri: 'https://picsum.photos/200/300?person' }}
                   style={styles.profileImage}
                 />
                 <View>
@@ -131,14 +130,16 @@ const Home = () => {
               </TouchableOpacity>
 
               {/* Menu Items */}
-              {menuItems.map((item, index) => (
-                <View key={index} style={styles.menuItem}>
-                  <Text style={styles.menuItemText}>{item.label}</Text>
-                  {item.value ? (
-                    <Text style={styles.menuItemValue}>{item.value}</Text>
-                  ) : null}
-                </View>
-              ))}
+              <ScrollView>
+                {menuItems.map((item, index) => (
+                  <View key={index} style={styles.menuItem}>
+                    <Text style={styles.menuItemText}>{item.label}</Text>
+                    {item.value ? (
+                      <Text style={styles.menuItemValue}>{item.value}</Text>
+                    ) : null}
+                  </View>
+                ))}
+              </ScrollView>
 
               {/* Footer Buttons */}
               <View style={styles.footerButtons}>
@@ -163,7 +164,7 @@ const Home = () => {
                 style={styles.closeModalButton}>
                 <Text style={styles.closeModalButtonText}>Close</Text>
               </TouchableOpacity>
-            </ScrollView>
+            </View>
           </View>
         </Modal>
       </SafeAreaView>
@@ -175,152 +176,122 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#202124',
+    paddingHorizontal: 5,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    padding: 10,
     alignItems: 'center',
-    padding: 16,
   },
   searchButton: {
     flexDirection: 'row',
-    alignItems: 'center',
     backgroundColor: '#303134',
-    padding: 8,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
     borderRadius: 20,
-    flex: 1,
-    marginHorizontal: 16,
+    alignItems: 'center',
   },
   searchButtonText: {
+    marginLeft: 5,
     color: '#fff',
-    marginLeft: 8,
+    fontSize: 16,
   },
   profileButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#8AB4F8',
+    backgroundColor: '#303134',
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
   profileLetter: {
-    color: '#202124',
-    fontWeight: 'bold',
+    color: '#fff',
+    fontSize: 18,
   },
   logoContainer: {
+    justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 24,
+    marginVertical: 20,
   },
   logoText: {
     color: '#fff',
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
   },
   searchBar: {
     flexDirection: 'row',
-    alignItems: 'center',
     backgroundColor: '#303134',
-    margin: 16,
-    padding: 12,
-    borderRadius: 24,
+    padding: 10,
+    borderRadius: 20,
+    alignItems: 'center',
+    marginHorizontal: 10,
   },
   searchInput: {
     flex: 1,
-    color: '#fff',
-    marginLeft: 8,
-    marginRight: 12,
-  },
-  shortcutsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginHorizontal: 16,
-    marginVertical: 10,
-  },
-  shortcutButton: {
-    width: 70,
-    height: 70,
-    borderRadius: 30,
     marginHorizontal: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  shortcutIcon: {
-    fontSize: 24,
-  },
-  weatherContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#303134',
-    margin: 16,
-    padding: 16,
-    borderRadius: 16,
-    justifyContent: 'space-between',
-  },
-  weatherLeft: {
-    flex: 1,
-  },
-  location: {
     color: '#fff',
     fontSize: 16,
   },
+  shortcutsContainer: {
+    marginVertical: 10,
+  },
+  weatherContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 15,
+    backgroundColor: '#303134',
+    marginHorizontal: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  weatherLeft: {
+    justifyContent: 'center',
+  },
+  location: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
   temperature: {
     color: '#fff',
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   weatherRight: {
-    flex: 1,
+    justifyContent: 'center',
     alignItems: 'flex-end',
   },
   weatherInfo: {
-    color: '#fff',
+    color: '#999',
     fontSize: 14,
   },
   weatherStatus: {
     color: '#fff',
     fontSize: 14,
-    marginTop: 4,
-  },
-  newsCard: {
-    backgroundColor: '#303134',
-    margin: 16,
-    borderRadius: 16,
-    overflow: 'hidden',
-  },
-  newsImage: {
-    width: '100%',
-    height: 200,
-  },
-  newsTitle: {
-    color: '#fff',
-    fontSize: 16,
-    padding: 16,
-    lineHeight: 24,
   },
   bottomNav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 16,
-    backgroundColor: '#202124',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    backgroundColor: '#303134',
+    paddingVertical: 10,
   },
   navItem: {
-    padding: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  // model
   modalContainer: {
-    // flex: 1,
-    justifyContent: 'center', // Center vertically
-    alignItems: 'center', // Center horizontally
-    backgroundColor: 'rgba(0,0,0,0.5)', // Dim background
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContent: {
     backgroundColor: '#1c1c1c',
     width: '90%',
     borderRadius: 10,
     padding: 20,
+    maxHeight: '80%',
   },
   profileContainer: {
     flexDirection: 'row',
@@ -335,53 +306,49 @@ const styles = StyleSheet.create({
   },
   profileName: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   profileEmail: {
-    color: '#bbb',
+    color: '#999',
     fontSize: 14,
   },
   manageAccountButton: {
-    backgroundColor: '#333',
+    backgroundColor: '#303134',
     padding: 10,
     borderRadius: 5,
     marginBottom: 20,
-    alignItems: 'center',
   },
   manageAccountText: {
     color: '#fff',
+    textAlign: 'center',
     fontSize: 14,
   },
   menuItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     paddingVertical: 10,
-    borderBottomColor: '#333',
     borderBottomWidth: 1,
+    borderBottomColor: '#303134',
   },
   menuItemText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
   },
   menuItemValue: {
-    color: '#bbb',
+    color: '#999',
     fontSize: 14,
   },
   footerButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginTop: 20,
   },
   footerButton: {
-    backgroundColor: '#333',
     padding: 10,
-    borderRadius: 5,
-    marginHorizontal: 5,
   },
   footerButtonText: {
-    color: '#fff',
+    color: '#999',
     fontSize: 14,
   },
   footerLinks: {
@@ -390,22 +357,22 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   footerLinkText: {
-    color: '#bbb',
-    fontSize: 12,
+    color: '#999',
+    fontSize: 14,
   },
   footerLinkSeparator: {
-    color: '#bbb',
+    color: '#999',
     marginHorizontal: 5,
   },
   closeModalButton: {
-    backgroundColor: '#444',
+    backgroundColor: '#303134',
     padding: 10,
     borderRadius: 5,
     marginTop: 20,
-    alignItems: 'center',
   },
   closeModalButtonText: {
     color: '#fff',
+    textAlign: 'center',
     fontSize: 14,
   },
 });
