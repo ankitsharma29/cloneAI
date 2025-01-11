@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   View,
   Text,
@@ -10,76 +10,84 @@ import {
   SafeAreaView,
   StatusBar,
   FlatList,
+  Modal,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NewsCards from '../../Components/NewsCards';
 import ShortcutsCard from '../../Components/ShortcutsCard';
 import Colors from '../../resource/theme/color';
+import {GoogleAccountModel} from '../../Components/GoogleAccountMenu';
 
-const GoogleSearchInterface = () => {
-  const shortcuts = [
-    {id: 1, color: '#8B7355', icon: '📄'},
-    {id: 2, color: '#4682B4', icon: '🌐'},
-    {id: 3, color: '#2E8B57', icon: '🎓'},
-    {id: 4, color: '#8B3A3A', icon: '🎵'},
+const Home = () => {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const menuItems = [
+    {label: 'Search history', value: 'Saving'},
+    {label: 'Delete last 15 minutes', value: ''},
+    {label: 'Search personalisation', value: ''},
+    {label: 'SafeSearch', value: ''},
+    {label: 'Results about you', value: ''},
+    {label: 'Tasks', value: ''},
+    {label: 'Saves and collections', value: ''},
+    {label: 'Your profile', value: ''},
   ];
-  const keyExtractor = useCallback(item => item.id.toString(), []);
-
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBar backgroundColor={Colors.black()} />
-
-      {/* Top Bar */}
-      <View style={styles.header}>
-        <Icon name="science" size={24} color="#fff" />
-        <View style={styles.searchButton}>
-          <Icon name="search" size={20} color="#fff" />
-          <Text style={styles.searchButtonText}>Search</Text>
-        </View>
-        <TouchableOpacity style={styles.profileButton}>
-          <Text style={styles.profileLetter}>A</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Google Logo */}
-      <View style={styles.logoContainer}>
-        <Text style={styles.logoText}>Google</Text>
-      </View>
-
-      {/* Search Bar */}
-      <View style={styles.searchBar}>
-        <Icon name="search" size={20} color="#fff" />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search"
-          placeholderTextColor="#999"
-        />
-        <Icon name="mic" size={20} color="#fff" />
-        <Icon name="camera-alt" size={20} color="#fff" />
-      </View>
-      <ScrollView>
-        {/* Shortcuts */}
-        <View style={styles.shortcutsContainer}>
-          <ShortcutsCard />
-        </View>
-
-        {/* Weather Widget */}
-        <View style={styles.weatherContainer}>
-          <View style={styles.weatherLeft}>
-            <Text style={styles.location}>Jaipur</Text>
-            <Text style={styles.temperature}>10°</Text>
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
+          {/* Top Bar */}
+          <View style={styles.header}>
+            <Icon name="science" size={24} color="#fff" />
+            <View style={styles.searchButton}>
+              <Icon name="search" size={20} color="#fff" />
+              <Text style={styles.searchButtonText}>Search</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.profileButton}
+              onPress={() => {
+                setModalVisible(true);
+              }}>
+              <Text style={styles.profileLetter}>A</Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.weatherRight}>
-            <Text style={styles.weatherInfo}>Air quality · 100</Text>
-            <Text style={styles.weatherStatus}>Moderate 😐</Text>
+
+          {/* Google Logo */}
+          <View style={styles.logoContainer}>
+            <Text style={styles.logoText}>Google</Text>
           </View>
-        </View>
 
-        {/* News Card */}
+          {/* Search Bar */}
+          <View style={styles.searchBar}>
+            <Icon name="search" size={20} color="#fff" />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search"
+              placeholderTextColor="#999"
+            />
+            <Icon name="mic" size={20} color="#fff" />
+            <Icon name="camera-alt" size={20} color="#fff" />
+          </View>
 
-        <NewsCards />
+          {/* Shortcuts */}
+          <View style={styles.shortcutsContainer}>
+            <ShortcutsCard />
+          </View>
 
-      </ScrollView>
+          {/* Weather Widget */}
+          <View style={styles.weatherContainer}>
+            <View style={styles.weatherLeft}>
+              <Text style={styles.location}>Jaipur</Text>
+              <Text style={styles.temperature}>10°</Text>
+            </View>
+            <View style={styles.weatherRight}>
+              <Text style={styles.weatherInfo}>Air quality · 100</Text>
+              <Text style={styles.weatherStatus}>Moderate 😐</Text>
+            </View>
+          </View>
+
+          {/* News Card */}
+          <NewsCards />
+        </ScrollView>
         {/* Bottom Navigation */}
         <View style={styles.bottomNav}>
           <TouchableOpacity style={styles.navItem}>
@@ -95,7 +103,71 @@ const GoogleSearchInterface = () => {
             <Icon name="menu" size={24} color="#fff" />
           </TouchableOpacity>
         </View>
-    </SafeAreaView>
+        {/* model for manage account */}
+        <Modal
+          visible={isModalVisible}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setModalVisible(false)}>
+          <View style={styles.modalContainer}>
+            <ScrollView style={styles.modalContent}>
+              {/* Profile Section */}
+              <View style={styles.profileContainer}>
+                <Image
+                  source={{uri: 'https://picsum.photos/200/300?person'}}
+                  style={styles.profileImage}
+                />
+                <View>
+                  <Text style={styles.profileName}>Ankit Sharma</Text>
+                  <Text style={styles.profileEmail}>ankitsharma@gmail.com</Text>
+                </View>
+              </View>
+
+              {/* Manage Account Button */}
+              <TouchableOpacity style={styles.manageAccountButton}>
+                <Text style={styles.manageAccountText}>
+                  Manage your Google Account
+                </Text>
+              </TouchableOpacity>
+
+              {/* Menu Items */}
+              {menuItems.map((item, index) => (
+                <View key={index} style={styles.menuItem}>
+                  <Text style={styles.menuItemText}>{item.label}</Text>
+                  {item.value ? (
+                    <Text style={styles.menuItemValue}>{item.value}</Text>
+                  ) : null}
+                </View>
+              ))}
+
+              {/* Footer Buttons */}
+              <View style={styles.footerButtons}>
+                <TouchableOpacity style={styles.footerButton}>
+                  <Text style={styles.footerButtonText}>Settings</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.footerButton}>
+                  <Text style={styles.footerButtonText}>Help and feedback</Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* Footer Links */}
+              <View style={styles.footerLinks}>
+                <Text style={styles.footerLinkText}>Privacy Policy</Text>
+                <Text style={styles.footerLinkSeparator}>•</Text>
+                <Text style={styles.footerLinkText}>Terms of service</Text>
+              </View>
+
+              {/* Close Modal Button */}
+              <TouchableOpacity
+                onPress={() => setModalVisible(false)}
+                style={styles.closeModalButton}>
+                <Text style={styles.closeModalButtonText}>Close</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+        </Modal>
+      </SafeAreaView>
+    </>
   );
 };
 
@@ -237,6 +309,105 @@ const styles = StyleSheet.create({
   navItem: {
     padding: 8,
   },
+  // model
+  modalContainer: {
+    // flex: 1,
+    justifyContent: 'center', // Center vertically
+    alignItems: 'center', // Center horizontally
+    backgroundColor: 'rgba(0,0,0,0.5)', // Dim background
+  },
+  modalContent: {
+    backgroundColor: '#1c1c1c',
+    width: '90%',
+    borderRadius: 10,
+    padding: 20,
+  },
+  profileContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
+  },
+  profileName: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  profileEmail: {
+    color: '#bbb',
+    fontSize: 14,
+  },
+  manageAccountButton: {
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  manageAccountText: {
+    color: '#fff',
+    fontSize: 14,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderBottomColor: '#333',
+    borderBottomWidth: 1,
+  },
+  menuItemText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  menuItemValue: {
+    color: '#bbb',
+    fontSize: 14,
+  },
+  footerButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  footerButton: {
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 5,
+    marginHorizontal: 5,
+  },
+  footerButtonText: {
+    color: '#fff',
+    fontSize: 14,
+  },
+  footerLinks: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  footerLinkText: {
+    color: '#bbb',
+    fontSize: 12,
+  },
+  footerLinkSeparator: {
+    color: '#bbb',
+    marginHorizontal: 5,
+  },
+  closeModalButton: {
+    backgroundColor: '#444',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  closeModalButtonText: {
+    color: '#fff',
+    fontSize: 14,
+  },
 });
 
-export default GoogleSearchInterface;
+export default Home;
