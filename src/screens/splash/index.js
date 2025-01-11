@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { StatusBar } from 'react-native';
+import {StatusBar} from 'react-native';
 import SlideInText from '../../Components/SlideInText';
+import Colors from '../../resource/theme/color';
 
-const SplashScreen = ({ navigation }) => {
+const SplashScreen = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.replace('Home');
@@ -13,30 +14,22 @@ const SplashScreen = ({ navigation }) => {
   return (
     <LinearGradient
       locations={[0, 0.5]}
-      colors={['#000000', '#77d4e4']}
+      colors={['#ffffff', '#ffffff']}
       style={styles.linearGradient}>
-      <StatusBar backgroundColor={'#000000'} />
+      <StatusBar backgroundColor={Colors.black} />
       <View
         style={{
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        {/* <Text style={{ color: '#ffe284', fontSize: 20 }}>Welcome Learn Code</Text> */}
-        <SlideInText
-          texts={[
-            'Welcome To Learn code',
-            'Learn Important Topics',
-            'Grow Your Knowledge',
-          ]}
-          duration={1500}
-          delay={500}
+        <Image
+          source={require('../../assets/images/splash.png')}
+          style={{width: '50%', height: '30%'}}
+          resizeMode="contain"
         />
-        <Image source={require('../../assets/images/splash.png')} style={{ width: '50%', height: '30%' }} />
-
       </View>
-
-    </LinearGradient >
+    </LinearGradient>
   );
 };
 
