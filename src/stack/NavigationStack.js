@@ -3,7 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from '../screens/splash';
 import HomeScreen from '../screens/Homescreen/Home';
-import SearchScreen from '../screens/SearchScreen/SearchScree';
+import SearchScreen from '../screens/SearchScreen/SearchScreen';
 import VoiceScreen from '../screens/VoiceSearch/VoiceSearchScreen';
 import GoogleLensScreen from '../screens/GoogleLensScreen/GoogleLensScreen';
 import LensSearchScreen from '../screens/LensSearchData/LensSearchScreen';

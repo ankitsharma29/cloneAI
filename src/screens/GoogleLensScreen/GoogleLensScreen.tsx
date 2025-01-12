@@ -108,7 +108,7 @@ const GoogleLensScreen = ({navigation}) => {
                       onPress={async () => {
                         const options = {quality: 0.5, base64: true};
                         const data = await camera.takePictureAsync(options);
-                        console.log('Image captured:', data.uri);
+                        console.log('Image captured:', data);
                         navigation.navigate('LensSearchScreen')
                       }}>
                       <View style={styles.captureCircle} />
