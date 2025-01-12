@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -16,17 +16,17 @@ import NewsCards from '../../Components/NewsCards';
 import ShortcutsCard from '../../Components/ShortcutsCard';
 import Colors from '../../resource/theme/color';
 
-const Home = () => {
+const Home = ({navigation}: any) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const menuItems = [
-    { label: 'Search history', value: 'Saving' },
-    { label: 'Delete last 15 minutes', value: '' },
-    { label: 'Search personalisation', value: '' },
-    { label: 'SafeSearch', value: '' },
-    { label: 'Results about you', value: '' },
-    { label: 'Tasks', value: '' },
-    { label: 'Saves and collections', value: '' },
-    { label: 'Your profile', value: '' },
+    {label: 'Search history', value: 'Saving'},
+    {label: 'Delete last 15 minutes', value: ''},
+    {label: 'Search personalisation', value: ''},
+    {label: 'SafeSearch', value: ''},
+    {label: 'Results about you', value: ''},
+    {label: 'Tasks', value: ''},
+    {label: 'Saves and collections', value: ''},
+    {label: 'Your profile', value: ''},
   ];
 
   return (
@@ -54,16 +54,19 @@ const Home = () => {
           </View>
 
           {/* Search Bar */}
-          <View style={styles.searchBar}>
-            <Icon name="search" size={20} color="#fff" />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Search"
-              placeholderTextColor="#999"
-            />
-            <Icon name="mic" size={20} color="#fff" />
-            <Icon name="camera-alt" size={20} color="#fff" />
-          </View>
+          <TouchableOpacity
+          style={styles.searchBar}
+            onPress={() => {
+              navigation.navigate('SearchScreen');
+            }}>
+            <View style={styles.searchBar}>
+              <Icon name="search" size={20} color="#fff" />
+
+              <Text style={styles.searchInput}>Search</Text>
+              <Icon name="mic" size={20} color="#fff" />
+              <Icon name="camera-alt" size={20} color="#fff" />
+            </View>
+          </TouchableOpacity>
 
           {/* Shortcuts */}
           <View style={styles.shortcutsContainer}>
@@ -113,7 +116,7 @@ const Home = () => {
               {/* Profile Section */}
               <View style={styles.profileContainer}>
                 <Image
-                  source={{ uri: 'https://picsum.photos/200/300?person' }}
+                  source={{uri: 'https://picsum.photos/200/300?person'}}
                   style={styles.profileImage}
                 />
                 <View>
