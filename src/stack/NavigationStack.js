@@ -5,6 +5,8 @@ import SplashScreen from '../screens/splash';
 import HomeScreen from '../screens/Homescreen/Home';
 import SearchScreen from '../screens/SearchScreen/SearchScree';
 import VoiceScreen from '../screens/VoiceSearch/VoiceSearchScreen';
+import GoogleLensScreen from '../screens/GoogleLensScreen/GoogleLensScreen';
+import LensSearchScreen from '../screens/LensSearchData/LensSearchScreen';
 const Stack = createNativeStackNavigator();
 const stackScreenOptions = {
   headerShown: false,
@@ -45,6 +47,14 @@ const NavigationStack = () => {
       <Stack.Screen
         name="VoiceScreen"
         component={VoiceScreen}
+      />
+      <Stack.Screen
+        name="GoogleLensScreen"
+        component={GoogleLensScreen}
+      />
+      <Stack.Screen
+        name="LensSearchScreen"
+        component={LensSearchScreen}
       />
     </Stack.Navigator>
   );

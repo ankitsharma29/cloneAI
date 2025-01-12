@@ -55,7 +55,7 @@ const Home = ({navigation}: any) => {
 
           {/* Search Bar */}
           <TouchableOpacity
-          style={styles.searchBar}
+            style={styles.searchBar}
             onPress={() => {
               navigation.navigate('SearchScreen');
             }}>
@@ -64,7 +64,12 @@ const Home = ({navigation}: any) => {
 
               <Text style={styles.searchInput}>Search</Text>
               <Icon name="mic" size={20} color="#fff" />
-              <Icon name="camera-alt" size={20} color="#fff" />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('GoogleLensScreen');
+                }}>
+                <Icon name="camera-alt" size={20} color="#fff" />
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
 
