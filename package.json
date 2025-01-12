@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-clipboard/clipboard": "^1.11.2",
+    "@react-native-voice/voice": "^3.2.4",
     "@react-navigation/native": "^6.1.12",
     "@react-navigation/native-stack": "^6.9.18",
     "@svgr/plugin-svgo": "^7.0.0",

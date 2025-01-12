@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from '../screens/splash';
 import HomeScreen from '../screens/Homescreen/Home';
 import SearchScreen from '../screens/SearchScreen/SearchScree';
+import VoiceScreen from '../screens/VoiceSearch/VoiceSearchScreen';
 const Stack = createNativeStackNavigator();
 const stackScreenOptions = {
   headerShown: false,
@@ -40,6 +41,10 @@ const NavigationStack = () => {
       <Stack.Screen
         name="SearchScreen"
         component={SearchScreen}
+      />
+      <Stack.Screen
+        name="VoiceScreen"
+        component={VoiceScreen}
       />
     </Stack.Navigator>
   );

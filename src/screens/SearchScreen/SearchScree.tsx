@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const SearchScreen = () => {
+const SearchScreen = ({navigation}:any) => {
   const recentSearches = [
     'top most AI Tools',
     'sequins skirt less than 2000',
@@ -37,7 +37,12 @@ const SearchScreen = () => {
           placeholder="Search or type URL"
           placeholderTextColor="#888"
         />
+        <TouchableOpacity onPress={()=>{
+          navigation.navigate('VoiceScreen')
+        }}>
+
         <Icon name="mic" size={24} color="#888" style={styles.icon} />
+        </TouchableOpacity>
         <Icon name="camera-alt" size={24} color="#888" style={styles.icon} />
       </View>
 
